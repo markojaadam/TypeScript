@@ -599,6 +599,11 @@ namespace ts {
             else if (isDefaultExternalModuleExport(node)) facts |= ClassFacts.IsDefaultExternalExport;
             else if (isNamedExternalModuleExport(node)) facts |= ClassFacts.IsNamedExternalExport;
             if (languageVersion <= ScriptTarget.ES5 && (facts & ClassFacts.MayNeedImmediatelyInvokedFunctionExpression)) facts |= ClassFacts.UseImmediatelyInvokedFunctionExpression;
+            if (facts & ClassFacts.HasAnyDecorators) facts |= ClassFacts.UseImmediatelyInvokedFunctionExpression;
+            if (facts & ClassFacts.HasStaticInitializedProperties) {
+                if (languageVersion < ScriptTarget.ESNext) facts |= ClassFacts.UseImmediatelyInvokedFunctionExpression;
+                else if (languageVersion === ScriptTarget.ESNext && !compilerOptions.useDefineForClassFields) facts |= ClassFacts.UseImmediatelyInvokedFunctionExpression;
+            }
             return facts;
         }
 
