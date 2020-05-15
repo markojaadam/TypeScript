@@ -4449,6 +4449,10 @@
         "category": "Error",
         "code": 6234
     },
+    "Emit code hints for optimizers and minifiers.": {
+      "category": "Message",
+      "code": 6234
+    },
 
     "Projects to reference": {
         "category": "Message",
